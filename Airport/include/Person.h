@@ -1,26 +1,40 @@
 #ifndef PERSON_H
 #define PERSON_H
-#include <string>
 
+#include <string>
+#include <sqlite3.h>
 using namespace std;
 
-class Person
-{
-    public:
-        Person();
-        ~Person();
-        bool login(string,string);
+class Person {
+protected:
+    int id;
+    string name;
+    string gender;
+    int age;
+    string username;
+    string password;
 
-    protected:
-        int id ;
-        string name;
-        int age;
-        bool gender;
-        string userName;
-        string password;
-        string phoneNumber;
+public:
+    // ructor and Destructor
+    Person(int id,  string name,  string gender, int age,  string username,  string password);
+    virtual ~Person();
 
-    private:
+    // Methods
+    virtual void login(sqlite3* db);
+
+    // Getters and Setters
+    int getId() ;
+    void setId(int id);
+    string getName() ;
+    void setName( string name);
+    string getGender() ;
+    void setGender( string gender);
+    int getAge() ;
+    void setAge(int age);
+    string getUsername() ;
+    void setUsername( string username);
+    string getPassword() ;
+    void setPassword( string password);
 };
 
-#endif // PERSON_H
+#endif
