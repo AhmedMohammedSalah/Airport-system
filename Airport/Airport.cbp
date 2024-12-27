@@ -34,6 +34,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add library="sqlite3" />
+			<Add directory="/usr/include" />
+		</Linker>
 		<Unit filename="include/Person.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Person.cpp" />

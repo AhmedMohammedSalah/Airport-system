@@ -21,6 +21,7 @@ public:
 
     // Methods
     virtual void login(sqlite3* db);
+    static Person login(sqlite3* db, string username, string password);
 
     // Getters and Setters
     int getId() ;
