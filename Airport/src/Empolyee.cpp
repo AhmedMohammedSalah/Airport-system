@@ -4,8 +4,6 @@
 Employee::Employee(int id, const string& name, const string& gender, int age, const string& username, const string& password, const string& position, double salary)
     : Person(id, name, gender, age, username, password), position(position), salary(salary) {}
 
-Employee::~Employee() {}
-
 string Employee::getPosition() const {
     return position;
 }

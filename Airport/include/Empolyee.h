@@ -13,8 +13,7 @@ protected:
 public:
     // Constructor and Destructor
     Employee(int id, const string& name, const string& gender, int age, const string& username, const string& password, const string& position, double salary);
-    virtual ~Employee();
-
+    virtual ~Employee() {}
     // Getter and Setter functions
     string getPosition() const;
     void setPosition(const string& position);
