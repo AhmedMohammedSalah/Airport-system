@@ -9,34 +9,51 @@ Person::Person(int id, string name, string gender, int age, string username, str
 Person::~Person() {}
 
 // Methods
-void Person::login(sqlite3* db) {
-    string query = "SELECT * FROM Persons WHERE username = '" + username + "' AND password = '" + password + "';";
+void Person::login(sqlite3* db)
+{
+    string query = "SELECT * FROM Persons WHERE username = ? AND password = ?";
     sqlite3_stmt* stmt;
 
-    if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) == SQLITE_OK) {
-        if (sqlite3_step(stmt) == SQLITE_ROW) {
+    // Prepare the query
+    if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+    {
+        // Bind parameters
+        sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 2, password.c_str(), -1, SQLITE_STATIC);
+
+        // Execute the query
+        if (sqlite3_step(stmt) == SQLITE_ROW)
+        {
             cout << "Login successful for user: " << username << endl;
-        } else {
+        }
+        else
+        {
             cout << "Login failed: Invalid username or password." << endl;
         }
-    } else {
-        cout << "Error executing login query." << endl;
+    }
+    else
+    {
+        cout << "Error executing login query: " << sqlite3_errmsg(db) << endl;
     }
 
     sqlite3_finalize(stmt);
 }
-Person Person::login(sqlite3* db, string username, string password) {
+
+Person Person::login(sqlite3* db, string username, string password)
+{
     string query = "SELECT * FROM Persons WHERE username = ? AND password = ?;";
     sqlite3_stmt* stmt;
 
     // Prepare the SQL query
-    if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) == SQLITE_OK) {
+    if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) == SQLITE_OK)
+    {
         // Bind parameters to prevent SQL injection
         sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
         sqlite3_bind_text(stmt, 2, password.c_str(), -1, SQLITE_STATIC);
 
         // Execute the query
-        if (sqlite3_step(stmt) == SQLITE_ROW) {
+        if (sqlite3_step(stmt) == SQLITE_ROW)
+        {
             // Extract values from the query result
             int id = sqlite3_column_int(stmt, 0);
             string name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
@@ -48,10 +65,14 @@ Person Person::login(sqlite3* db, string username, string password) {
             // Finalize the statement and return the populated Person object
             sqlite3_finalize(stmt);
             return Person(id, name, gender, age, username, password);
-        } else {
+        }
+        else
+        {
             cout << "Login failed: Invalid username or password." << endl;
         }
-    } else {
+    }
+    else
+    {
         cout << "Error preparing login query: " << sqlite3_errmsg(db) << endl;
     }
 
@@ -60,50 +81,62 @@ Person Person::login(sqlite3* db, string username, string password) {
     return Person(-1, "", "", 0, "", ""); // Special "invalid" Person object
 }
 // Getters and Setters
-int Person::getId() {
+int Person::getId()
+{
     return id;
 }
 
-void Person::setId(int id) {
+void Person::setId(int id)
+{
     this->id = id;
 }
 
-string Person::getName() {
+string Person::getName()
+{
     return name;
 }
 
-void Person::setName(string name) {
+void Person::setName(string name)
+{
     this->name = name;
 }
 
-string Person::getGender() {
+string Person::getGender()
+{
     return gender;
 }
 
-void Person::setGender(string gender) {
+void Person::setGender(string gender)
+{
     this->gender = gender;
 }
 
-int Person::getAge() {
+int Person::getAge()
+{
     return age;
 }
 
-void Person::setAge(int age) {
+void Person::setAge(int age)
+{
     this->age = age;
 }
 
-string Person::getUsername() {
+string Person::getUsername()
+{
     return username;
 }
 
-void Person::setUsername(string username) {
+void Person::setUsername(string username)
+{
     this->username = username;
 }
 
-string Person::getPassword() {
+string Person::getPassword()
+{
     return password;
 }
 
-void Person::setPassword(string password) {
+void Person::setPassword(string password)
+{
     this->password = password;
 }

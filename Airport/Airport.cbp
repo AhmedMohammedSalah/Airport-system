@@ -38,9 +38,17 @@
 			<Add library="sqlite3" />
 			<Add directory="/usr/include" />
 		</Linker>
+		<Unit filename="include/Empolyee.h" />
+		<Unit filename="include/Flight.h" />
+		<Unit filename="include/Passenger.h" />
 		<Unit filename="include/Person.h" />
+		<Unit filename="include/Ticket.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Empolyee.cpp" />
+		<Unit filename="src/Flight.cpp" />
+		<Unit filename="src/Passenger.cpp" />
 		<Unit filename="src/Person.cpp" />
+		<Unit filename="src/Ticket.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

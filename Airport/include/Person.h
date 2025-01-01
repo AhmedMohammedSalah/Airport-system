@@ -5,7 +5,8 @@
 #include <sqlite3.h>
 using namespace std;
 
-class Person {
+class Person
+{
 protected:
     int id;
     string name;
